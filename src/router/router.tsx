@@ -17,21 +17,54 @@ export default function Router() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="AddEnsaio" component={AdicionarEnsaio} />
-        <Stack.Screen name="GerenciarEnsaio" component={GerenciarEnsaio} />
-        <Stack.Screen name="GerenciarMusicos" component={gerenciarMusicos} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "",
+          }}
+        />
+        <Stack.Screen
+          name="AddEnsaio"
+          component={AdicionarEnsaio}
+          options={{
+            title: "Adicionar ensaio",
+          }}
+        />
+        <Stack.Screen
+          name="GerenciarEnsaio"
+          component={GerenciarEnsaio}
+          options={{
+            title: "Gerenciar Ensaio",
+          }}
+        />
+        <Stack.Screen
+          name="GerenciarMusicos"
+          component={gerenciarMusicos}
+          options={{
+            title: "Gerenciar musicos",
+          }}
+        />
         <Stack.Screen
           name="GerenciarOrganista"
           component={GerenciarOrganista}
+          options={{
+            title: "Gerenciar Organista",
+          }}
         />
         <Stack.Screen
           name="GerenciarMinisterio"
           component={GerenciarMinisterio}
+          options={{
+            title: "Gerenciar Ministerio",
+          }}
         />
         <Stack.Screen
           name="GerenciarEncarregado"
           component={GerenciarEncarregado}
+          options={{
+            title: "Gerenciar encarregado",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

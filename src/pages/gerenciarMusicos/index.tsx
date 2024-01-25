@@ -1,19 +1,27 @@
 import { useRoute } from "@react-navigation/native";
 import { Button, Text, Modal, Portal, TextInput } from "react-native-paper";
-import { database, ensaioProps } from "../../service/database";
-import { Avatar, Card, IconButton } from "react-native-paper";
+import { database, ensaioProps, musicoProps } from "../../service/database";
+import { Avatar, Card, IconButton, Searchbar } from "react-native-paper";
 import { FlatList, StyleSheet, Alert } from "react-native";
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
 
 import * as z from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import CardClique from "../../components/cardsClique";
 
 export default function GerenciarMusicos() {
   const route = useRoute();
   const { id } = route.params as { id: string };
 
   const [ensaio, setEnsaio] = useState<ensaioProps>();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [queryMusicos, setQueryMusicos] = useState<musicoProps[]>();
+
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   useEffect(() => {
     const executar = async () => {
@@ -24,10 +32,22 @@ export default function GerenciarMusicos() {
     executar();
   }, []);
 
-  const [visible, setVisible] = useState(false);
+  const buscarInstrumento = (instrumento: string) => {
+    const result = ensaio?.musicos?.filter((m) => {
+      const result = m.instrumento
+        .toUpperCase()
+        .indexOf(instrumento.toUpperCase());
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+      if (result !== -1) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    setQueryMusicos(result);
+  };
+
   const containerStyle = { backgroundColor: "white", padding: 20 };
 
   const addMusico = async (instrumento: string) => {
@@ -66,9 +86,9 @@ export default function GerenciarMusicos() {
     setEnsaio(data);
   };
 
-  const addMenosUm = async (instrumento: string) => {
+  const MenosUm = async (instrumento: string) => {
     const data = await database.addMenosUm(instrumento, id);
-    setEnsaio(data);
+    setEnsaio(data as ensaioProps);
   };
 
   const schema = z.object({
@@ -77,39 +97,23 @@ export default function GerenciarMusicos() {
 
   return (
     <>
+      <Searchbar
+        placeholder="Pesquisar Instrumento"
+        onChangeText={(value) => {
+          setSearchQuery(value);
+          buscarInstrumento(value);
+          console.log("Executando apenas uma vez");
+        }}
+        value={searchQuery}
+      />
       <FlatList
-        data={!ensaio?.musicos ? [] : ensaio.musicos}
+        data={searchQuery.length ? queryMusicos : ensaio?.musicos}
         renderItem={({ item }) => (
-          <>
-            <Card>
-              <Card.Title
-                title={item.instrumento}
-                subtitle={`Quantidade: ${item.quantidade}`}
-                left={(props) => <Avatar.Icon {...props} icon="folder" />}
-                right={(props) => (
-                  <>
-                    <IconButton
-                      {...props}
-                      icon="delete"
-                      onPress={async () =>
-                        await removerMusico(item.instrumento)
-                      }
-                    />
-                  </>
-                )}
-              />
-              <Card.Actions>
-                <IconButton
-                  icon={"plus"}
-                  onPress={async () => await addMaisUm(item.instrumento)}
-                />
-                <IconButton
-                  icon={"minus"}
-                  onPress={async () => await addMenosUm(item.instrumento)}
-                />
-              </Card.Actions>
-            </Card>
-          </>
+          <CardClique
+            item={item}
+            maisUm={async () => await addMaisUm(item.instrumento)}
+            menosUm={async () => await MenosUm(item.instrumento)}
+          />
         )}
       />
 

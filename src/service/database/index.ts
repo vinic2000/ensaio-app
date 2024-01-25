@@ -79,6 +79,117 @@ class Database {
           quantidade: 0,
         },
       },
+
+      musicos: [
+        {
+          instrumento: "Violinos",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Violas",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Violoncelos",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Flautas",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Oboés",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Oboés D'Amore",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Corne Inglês",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Fagotes",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Clarinetes",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Clarinetes Alto",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Clarinetes Baixo",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Saxofones Soprano",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Saxofones Alto",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Saxofones Tenor",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Saxofones Baritono",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Saxofones Baixo",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Trompetetes",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Cornetes",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Flugelhorns",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Trompas",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Trombonitos",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Trombones",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Barítonos",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Eufônios",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Tubas",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Órgão",
+          quantidade: 0,
+        },
+        {
+          instrumento: "Acordeon",
+          quantidade: 0,
+        },
+      ],
     };
 
     if (await this.verificarSeBancoFoiCriado()) {
@@ -375,4 +486,4 @@ class Database {
 
 export const database = new Database();
 
-export { ensaioProps };
+export { ensaioProps, musicoProps };
