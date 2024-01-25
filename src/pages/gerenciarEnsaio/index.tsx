@@ -22,8 +22,6 @@ export default function GerenciarEnsaio() {
   const executar = async () => {
     const data = await database.buscarEnsaio(id);
     setEnsaio(data);
-
-    console.log("enssio", data);
   };
 
   useEffect(() => {

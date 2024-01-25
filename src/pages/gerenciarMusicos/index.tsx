@@ -56,7 +56,6 @@ export default function GerenciarMusicos() {
         onChangeText={(value) => {
           setSearchQuery(value);
           buscarInstrumento(value);
-          console.log("Executando apenas uma vez");
         }}
         value={searchQuery}
       />
