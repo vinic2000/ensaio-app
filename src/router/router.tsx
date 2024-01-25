@@ -10,18 +10,29 @@ import gerenciarMusicos from "../pages/gerenciarMusicos";
 import GerenciarOrganista from "../pages/gerenciarOrganista";
 import GerenciarMinisterio from "../pages/gerenciarMinisterio";
 import GerenciarEncarregado from "../pages/gerenciarEncarregado";
+import Login from "../pages/login";
 
 export default function Router() {
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            title: "",
+            headerTransparent: true,
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="Home"
           component={Home}
           options={{
             title: "Lista de Ensaios",
+            headerBackVisible: false,
           }}
         />
         <Stack.Screen

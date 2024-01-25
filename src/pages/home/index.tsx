@@ -1,5 +1,5 @@
 import { useNavigation, useIsFocused } from "@react-navigation/native";
-import { Alert, FlatList, StyleSheet } from "react-native";
+import { Alert, FlatList } from "react-native";
 
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { useEffect, useState } from "react";
@@ -16,7 +16,6 @@ export default function Home() {
   useEffect(() => {
     const executar = async () => {
       const data = await database.todosEnsaios();
-      console.log("Ensaio", data);
       setEnsaios(data);
     };
 
@@ -36,6 +35,10 @@ export default function Home() {
       },
     ]);
   };
+
+  navigation.addListener("beforeRemove", (e) => {
+    e.preventDefault();
+  });
 
   return (
     <>

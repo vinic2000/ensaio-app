@@ -47,8 +47,6 @@ class Database {
     const data = JSON.parse((await AsyncStorage.getItem("database")) as string);
     const ensaios = data as ensaioProps[];
 
-    console.log("Ensaios", ensaios);
-
     if (ensaios === null) {
       return false;
     }
@@ -380,8 +378,6 @@ class Database {
     const ensaios = await this.todosEnsaios();
 
     const index = ensaios.findIndex((e) => e.id === id);
-
-    console.log(index);
 
     const ensaio = ensaios[index];
 
