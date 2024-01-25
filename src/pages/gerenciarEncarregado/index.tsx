@@ -89,7 +89,14 @@ export default function GerenciarEncarregado() {
         )}
       />
 
-      <Button icon={"plus"} onPress={showModal} mode="contained-tonal">
+      <Button
+        icon={"plus"}
+        onPress={showModal}
+        mode="contained-tonal"
+        style={{
+          borderRadius: 0,
+        }}
+      >
         Cadastrar
       </Button>
 
@@ -130,7 +137,10 @@ export default function GerenciarEncarregado() {
                 <Button
                   icon={"plus"}
                   onPress={async () => await handleSubmit()}
-                  mode="contained-tonal"
+                  mode="contained"
+                  style={{
+                    borderRadius: 0,
+                  }}
                 >
                   Adicionar
                 </Button>

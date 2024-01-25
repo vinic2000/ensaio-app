@@ -4,6 +4,7 @@ import { Alert, FlatList, StyleSheet } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { database, ensaioProps } from "../../service/database";
+import moment from "moment";
 
 export default function Home() {
   const [ensaios, setEnsaios] = useState<ensaioProps[]>();
@@ -64,6 +65,16 @@ export default function Home() {
                   </>
                 )}
               />
+              <Card.Content>
+                <Text
+                  variant="bodyMedium"
+                  style={{
+                    textAlign: "right",
+                  }}
+                >
+                  Data: {moment(item.data).format("DD-MM-YYYY")}
+                </Text>
+              </Card.Content>
             </Card>
           </>
         )}
@@ -72,29 +83,12 @@ export default function Home() {
         icon="plus"
         mode="contained"
         onPress={() => navigation.navigate("AddEnsaio")}
+        style={{
+          borderRadius: 0,
+        }}
       >
         Novo ensaio
       </Button>
     </>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    // alignContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 5,
-    gap: 10,
-    width: 1000,
-    padding: 2,
-  },
-
-  titulo: {
-    fontSize: 20,
-  },
-
-  subtitulo: {
-    fontSize: 15,
-  },
-});

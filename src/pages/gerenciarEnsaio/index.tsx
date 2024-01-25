@@ -79,22 +79,6 @@ export default function GerenciarEnsaio() {
         />
       </TouchableOpacity>
 
-      {/* <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() =>
-          navigation.navigate("GerenciarOrganista", { id: ensaio.id })
-        }
-      >
-        <Card>
-          <Card.Title
-            title="Organistas"
-            subtitle={`Total : ${contarOrganistas()}`}
-            left={(props) => <Avatar.Icon {...props} icon="piano" />}
-            right={(props) => <IconButton {...props} icon="eye" />}
-          />
-        </Card>
-      </TouchableOpacity> */}
-
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>

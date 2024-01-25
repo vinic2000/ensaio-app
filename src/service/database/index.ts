@@ -9,6 +9,7 @@ type ensaioProps = {
   organistas: organistaProps;
   ministerio: ministerioProps[];
   encarregados: encarregadoProps[];
+  data: Date;
 };
 
 type addEnsaioParam = {
@@ -59,6 +60,7 @@ class Database {
     encarregado,
   }: addEnsaioParam): Promise<ensaioProps> {
     const ensaio: ensaioProps = {
+      data: new Date(),
       comum_congregacao: comum_congregacao,
       encarregado: encarregado,
       id: uuid.v4().toString(),

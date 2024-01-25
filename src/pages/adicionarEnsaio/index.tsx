@@ -90,5 +90,6 @@ const style = StyleSheet.create({
   button: {
     width: "100%",
     marginTop: 20,
+    borderRadius: 0,
   },
 });
