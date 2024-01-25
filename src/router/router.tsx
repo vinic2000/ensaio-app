@@ -21,49 +21,49 @@ export default function Router() {
           name="Home"
           component={Home}
           options={{
-            title: "",
+            title: "Lista de Ensaios",
           }}
         />
         <Stack.Screen
           name="AddEnsaio"
           component={AdicionarEnsaio}
           options={{
-            title: "Adicionar ensaio",
+            title: "Novo Ensaio",
           }}
         />
         <Stack.Screen
           name="GerenciarEnsaio"
           component={GerenciarEnsaio}
           options={{
-            title: "Gerenciar Ensaio",
+            title: "Ensaio",
           }}
         />
         <Stack.Screen
           name="GerenciarMusicos"
           component={gerenciarMusicos}
           options={{
-            title: "Gerenciar musicos",
+            title: "Musicos",
           }}
         />
         <Stack.Screen
           name="GerenciarOrganista"
           component={GerenciarOrganista}
           options={{
-            title: "Gerenciar Organista",
+            title: "Organistas",
           }}
         />
         <Stack.Screen
           name="GerenciarMinisterio"
           component={GerenciarMinisterio}
           options={{
-            title: "Gerenciar Ministerio",
+            title: "Ministério",
           }}
         />
         <Stack.Screen
           name="GerenciarEncarregado"
           component={GerenciarEncarregado}
           options={{
-            title: "Gerenciar encarregado",
+            title: "Encarregado",
           }}
         />
       </Stack.Navigator>
