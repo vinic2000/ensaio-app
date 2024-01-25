@@ -31,9 +31,8 @@ type organistaProps = {
 };
 
 type ministerioProps = {
-  id: string;
-  nome: string;
-  comum_congregacao: string;
+  Cargo: string;
+  quantidade: number;
 };
 
 type encarregadoProps = {
@@ -70,7 +69,36 @@ class Database {
           comum_congregacao: comum_congregacao,
         },
       ],
-      ministerio: [],
+      ministerio: [
+        {
+          Cargo: "Anciães",
+          quantidade: 0,
+        },
+        {
+          Cargo: "Diáconos",
+          quantidade: 0,
+        },
+        {
+          Cargo: "Cooperadores Do O.M",
+          quantidade: 0,
+        },
+        {
+          Cargo: "Cooperadores Do J.E M",
+          quantidade: 0,
+        },
+        {
+          Cargo: "Encarregados Regionais",
+          quantidade: 0,
+        },
+        {
+          Cargo: "Examinadores",
+          quantidade: 0,
+        },
+        {
+          Cargo: "Encarregados Locais",
+          quantidade: 0,
+        },
+      ],
       organistas: {
         examinadora: {
           quantidade: 0,
@@ -395,48 +423,48 @@ class Database {
     return ensaio;
   }
 
-  async adicionarMinisterio(
-    id: string,
-    nome: string,
-    comum_congregacao: string
-  ): Promise<ensaioProps> {
-    const ensaios = await this.todosEnsaios();
+  // async adicionarMinisterio(
+  //   id: string,
+  //   nome: string,
+  //   comum_congregacao: string
+  // ): Promise<ensaioProps> {
+  //   const ensaios = await this.todosEnsaios();
 
-    const index = ensaios.findIndex((e) => e.id === id);
+  //   const index = ensaios.findIndex((e) => e.id === id);
 
-    const ensaio = ensaios[index];
+  //   const ensaio = ensaios[index];
 
-    ensaio.ministerio.push({
-      id: uuid.v4().toString(),
-      nome: nome,
-      comum_congregacao: comum_congregacao,
-    });
+  //   ensaio.ministerio.push({
+  //     id: uuid.v4().toString(),
+  //     nome: nome,
+  //     comum_congregacao: comum_congregacao,
+  //   });
 
-    ensaios[index] = ensaio;
+  //   ensaios[index] = ensaio;
 
-    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+  //   await AsyncStorage.setItem("database", JSON.stringify(ensaios));
 
-    return ensaio;
-  }
+  //   return ensaio;
+  // }
 
-  async removerMinisterio(
-    idEnsaio: string,
-    idMinisterio: string
-  ): Promise<ensaioProps> {
-    const ensaios = await this.todosEnsaios();
+  // async removerMinisterio(
+  //   idEnsaio: string,
+  //   idMinisterio: string
+  // ): Promise<ensaioProps> {
+  //   const ensaios = await this.todosEnsaios();
 
-    const index = ensaios.findIndex((e) => e.id === idEnsaio);
+  //   const index = ensaios.findIndex((e) => e.id === idEnsaio);
 
-    const ensaio = ensaios[index];
+  //   const ensaio = ensaios[index];
 
-    const ministerio = ensaio.ministerio.filter((m) => m.id !== idMinisterio);
+  //   const ministerio = ensaio.ministerio.filter((m) => m.id !== idMinisterio);
 
-    ensaio.ministerio = ministerio;
+  //   ensaio.ministerio = ministerio;
 
-    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+  //   await AsyncStorage.setItem("database", JSON.stringify(ensaios));
 
-    return ensaio;
-  }
+  //   return ensaio;
+  // }
 
   async adicionarEncarregado(
     id: string,
@@ -482,8 +510,55 @@ class Database {
 
     return ensaio;
   }
+
+  async addMiasUmMinisterio(id: string, posicao: number): Promise<ensaioProps> {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+
+    const ministerio = ensaio.ministerio[posicao];
+
+    let quantidade = ministerio.quantidade + 1;
+
+    ministerio.quantidade = quantidade;
+
+    ensaio.ministerio[posicao] = ministerio;
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
+
+  async removerMenosUmMinisterio(
+    id: string,
+    posicao: number
+  ): Promise<ensaioProps> {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+
+    const ministerio = ensaio.ministerio[posicao];
+
+    let quantidade = ministerio.quantidade - 1;
+
+    ministerio.quantidade = quantidade;
+
+    ensaio.ministerio[posicao] = ministerio;
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
 }
 
 export const database = new Database();
 
-export { ensaioProps, musicoProps };
+export { ensaioProps, musicoProps, ministerioProps };

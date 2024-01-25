@@ -1,25 +1,45 @@
 import { Avatar, Card, IconButton, Text } from "react-native-paper";
-import { musicoProps } from "../../service/database";
+import { ministerioProps, musicoProps } from "../../service/database";
 import { useState } from "react";
 
 type props = {
   maisUm: Function;
   menosUm: Function;
-  item: musicoProps;
+  item: musicoProps | ministerioProps;
+  tipo: "instrumentos" | "ministerio";
 };
 
-export default function CardClique({ maisUm, menosUm, item }: props) {
+export default function CardClique({ maisUm, menosUm, item, tipo }: props) {
   const [ativo, setAtivo] = useState(false);
+
+  const verificarTipo = () => {
+    if (tipo === "instrumentos") {
+      const dados = item as musicoProps;
+      return (
+        <Card.Title
+          title={dados.instrumento}
+          subtitle={`Quantidade: ${dados.quantidade}`}
+          left={(props) => <Avatar.Icon {...props} icon="folder" />}
+        />
+      );
+    }
+
+    if (tipo === "ministerio") {
+      const dados = item as ministerioProps;
+      return (
+        <Card.Title
+          title={dados.Cargo}
+          subtitle={`Quantidade: ${dados.quantidade}`}
+          left={(props) => <Avatar.Icon {...props} icon="folder" />}
+        />
+      );
+    }
+  };
 
   return (
     <>
       <Card onPress={() => setAtivo(!ativo)}>
-        <Card.Title
-          title={item.instrumento}
-          subtitle={`Quantidade: ${item.quantidade}`}
-          left={(props) => <Avatar.Icon {...props} icon="folder" />}
-        />
-
+        {verificarTipo()}
         {!ativo || (
           <Card.Actions>
             <IconButton icon={"plus"} onPress={async () => await maisUm()} />

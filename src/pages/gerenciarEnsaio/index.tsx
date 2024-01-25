@@ -51,6 +51,18 @@ export default function GerenciarEnsaio() {
     return totalOrganistas + totaExaminadoras;
   };
 
+  const contarMinisterio = (): number => {
+    if (!ensaio?.ministerio) {
+      return 0;
+    }
+
+    const totalMinisterio = ensaio.ministerio.reduce(
+      (total, m) => (total += m.quantidade),
+      0
+    );
+    return totalMinisterio;
+  };
+
   return (
     <>
       <TouchableOpacity
@@ -92,7 +104,7 @@ export default function GerenciarEnsaio() {
         <Card>
           <Card.Title
             title="Ministerio"
-            subtitle={`Total: ${ensaio?.ministerio.length}`}
+            subtitle={`Total: ${contarMinisterio()}`}
             left={(props) => <Avatar.Icon {...props} icon="folder" />}
             right={(props) => <IconButton {...props} icon="eye" />}
           />
