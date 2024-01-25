@@ -18,10 +18,10 @@ export default function GerenciarMusicos() {
   const [searchQuery, setSearchQuery] = useState("");
   const [queryMusicos, setQueryMusicos] = useState<musicoProps[]>();
 
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  // const showModal = () => setVisible(true);
+  // const hideModal = () => setVisible(false);
 
   useEffect(() => {
     const executar = async () => {
@@ -48,38 +48,38 @@ export default function GerenciarMusicos() {
     setQueryMusicos(result);
   };
 
-  const containerStyle = { backgroundColor: "white", padding: 20 };
+  // const containerStyle = { backgroundColor: "white", padding: 20 };
 
-  const addMusico = async (instrumento: string) => {
-    const data = await database.addMusico(instrumento, ensaio?.id as string);
-    setEnsaio(data);
-    hideModal();
-  };
+  // const addMusico = async (instrumento: string) => {
+  //   const data = await database.addMusico(instrumento, ensaio?.id as string);
+  //   setEnsaio(data);
+  //   hideModal();
+  // };
 
-  const removerMusico = async (instrumento: string) => {
-    Alert.alert(
-      "Remover instrumento",
-      "Tem certeza que seja remover o músico",
-      [
-        {
-          text: "cancelar",
-          onPress: () => {},
-          style: "cancel",
-        },
-        {
-          text: "Remover",
-          onPress: async () => {
-            const data = await database.removerMusico(
-              instrumento,
-              ensaio?.id as string
-            );
-            setEnsaio(data);
-            hideModal();
-          },
-        },
-      ]
-    );
-  };
+  // const removerMusico = async (instrumento: string) => {
+  //   Alert.alert(
+  //     "Remover instrumento",
+  //     "Tem certeza que seja remover o músico",
+  //     [
+  //       {
+  //         text: "cancelar",
+  //         onPress: () => {},
+  //         style: "cancel",
+  //       },
+  //       {
+  //         text: "Remover",
+  //         onPress: async () => {
+  //           const data = await database.removerMusico(
+  //             instrumento,
+  //             ensaio?.id as string
+  //           );
+  //           setEnsaio(data);
+  //           hideModal();
+  //         },
+  //       },
+  //     ]
+  //   );
+  // };
 
   const addMaisUm = async (instrumento: string) => {
     const data = await database.addMiasUm(instrumento, id);
@@ -91,9 +91,9 @@ export default function GerenciarMusicos() {
     setEnsaio(data as ensaioProps);
   };
 
-  const schema = z.object({
-    instrumento: z.string(),
-  });
+  // const schema = z.object({
+  //   instrumento: z.string(),
+  // });
 
   return (
     <>
@@ -117,7 +117,7 @@ export default function GerenciarMusicos() {
         )}
       />
 
-      <Button onPress={showModal}>Adicionar Instrumento</Button>
+      {/* <Button onPress={showModal}>Adicionar Instrumento</Button>
 
       <Portal>
         <Modal
@@ -157,7 +157,7 @@ export default function GerenciarMusicos() {
             )}
           </Formik>
         </Modal>
-      </Portal>
+      </Portal> */}
     </>
   );
 }

@@ -67,7 +67,7 @@ export default function GerenciarEnsaio() {
         />
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
           navigation.navigate("GerenciarOrganista", { id: ensaio.id })
@@ -81,7 +81,7 @@ export default function GerenciarEnsaio() {
             right={(props) => <IconButton {...props} icon="eye" />}
           />
         </Card>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity
         activeOpacity={0.8}
@@ -110,6 +110,7 @@ export default function GerenciarEnsaio() {
             title="Encarreagados"
             subtitle={`Total: ${ensaio?.encarregados.length}`}
             left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            right={(props) => <IconButton {...props} icon="eye" />}
           />
         </Card>
       </TouchableOpacity>
