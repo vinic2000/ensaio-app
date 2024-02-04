@@ -1,3 +1,4 @@
+import { pdf } from "@react-pdf/renderer";
 import { ensaioProps } from "../database";
 
 import * as Print from "expo-print";
