@@ -81,6 +81,11 @@ class Pdf {
                               </tr>
                               `;
                             })}
+                            <tr>
+                              <td colspan="2" class="table-active text-center">${
+                                this.total().totalMusicosEOrganistas
+                              } INSTRUMENTOS</td>
+                            </tr>
                         </tbody>
                 </table>
 
