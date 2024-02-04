@@ -5,8 +5,9 @@ import {
 } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Avatar, Card, IconButton, Text } from "react-native-paper";
+import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
+import Pdf from "../../service/pdf";
 
 export default function GerenciarEnsaio() {
   const route = useRoute();
@@ -38,15 +39,6 @@ export default function GerenciarEnsaio() {
       0
     );
     return totalMusicos;
-  };
-
-  const contarOrganistas = (): number => {
-    const totalOrganistas = ensaio?.organistas.organista.quantidade as number;
-
-    const totaExaminadoras = ensaio?.organistas.examinadora
-      .quantidade as number;
-
-    return totalOrganistas + totaExaminadoras;
   };
 
   const contarMinisterio = (): number => {
@@ -108,6 +100,24 @@ export default function GerenciarEnsaio() {
           />
         </Card>
       </TouchableOpacity>
+
+      <Button
+        style={{
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+          padding: 4,
+          borderRadius: 0,
+        }}
+        // onPress={() => navigation.navigate("Pdf", { ensaio: ensaio })}
+        onPress={async () => {
+          const pdf = new Pdf(ensaio as ensaioProps);
+          pdf.gearPdf();
+        }}
+        mode="contained"
+      >
+        Gerar PDF
+      </Button>
     </>
   );
 }

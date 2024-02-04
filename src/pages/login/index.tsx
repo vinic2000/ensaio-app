@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Alert, View } from "react-native";
+import { useEffect } from "react";
+import { Alert } from "react-native";
 
 import * as LocalAuthentication from "expo-local-authentication";
 import { useNavigation } from "@react-navigation/native";
@@ -9,17 +9,31 @@ export default function Login() {
 
   const navigate = useNavigation();
 
-  async function VerificarPermissaoParaAutenticacao() {
+  async function autenticar() {
     const compatibilidade = await LocalAuthentication.hasHardwareAsync();
+    console.log("compatibilidade", compatibilidade);
+
+    if (!compatibilidade) {
+      console.log(
+        "Sistema não possui compatibilidade para usar biometria como autenticação"
+      );
+      navigate.navigate("Home");
+    }
 
     const types = await LocalAuthentication.supportedAuthenticationTypesAsync();
-  }
 
-  async function autenticar() {
+    if (!types.length) {
+      console.log(
+        "Sistema não possui compatibilidade para usar biometria como autenticação"
+      );
+      navigate.navigate("Home");
+    }
+
     const isbiometria = await LocalAuthentication.isEnrolledAsync();
 
     if (!isbiometria) {
-      return Alert.alert("Não existe uma biometria configurada no sistema");
+      Alert.alert("Necessário cadastrar biometria");
+      navigate.navigate("Home");
     }
 
     const auth = await LocalAuthentication.authenticateAsync({
@@ -33,9 +47,8 @@ export default function Login() {
   }
 
   useEffect(() => {
-    VerificarPermissaoParaAutenticacao();
     autenticar();
   });
 
-  return <View />;
+  return <></>;
 }
