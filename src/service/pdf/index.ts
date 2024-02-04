@@ -94,7 +94,8 @@ class Pdf {
                     </tr>
                     <tr>
                         <td>${
-                          this.total().totalMinisterio - this.totalOrganista()
+                          (this.total().totalMusicosEOrganistas as number) -
+                          this.totalOrganista()
                         }</td>
                         <td>Músico</td>
                     </tr>
