@@ -10,6 +10,7 @@ type ensaioProps = {
   ministerio: ministerioProps[];
   encarregados: encarregadoProps[];
   data: Date;
+  visita: string;
 };
 
 type addEnsaioParam = {
@@ -71,31 +72,31 @@ class Database {
       ],
       ministerio: [
         {
-          Cargo: "Anciães",
+          Cargo: "Ancião",
           quantidade: 0,
         },
         {
-          Cargo: "Diáconos",
+          Cargo: "Diácono",
           quantidade: 0,
         },
         {
-          Cargo: "Cooperadores Do O.M",
+          Cargo: "Cooperador",
           quantidade: 0,
         },
         {
-          Cargo: "Cooperadores Do J.E M",
+          Cargo: "Cooperador De Jovens",
           quantidade: 0,
         },
         {
-          Cargo: "Encarregados Regionais",
+          Cargo: "Encarregado Regional",
           quantidade: 0,
         },
         {
-          Cargo: "Examinadores",
+          Cargo: "Examinadora",
           quantidade: 0,
         },
         {
-          Cargo: "Encarregados Locais",
+          Cargo: "Encarregado Local",
           quantidade: 0,
         },
       ],
@@ -110,27 +111,27 @@ class Database {
 
       musicos: [
         {
-          instrumento: "Violinos",
+          instrumento: "Violino",
           quantidade: 0,
         },
         {
-          instrumento: "Violas",
+          instrumento: "Viola",
           quantidade: 0,
         },
         {
-          instrumento: "Violoncelos",
+          instrumento: "Violoncelo",
           quantidade: 0,
         },
         {
-          instrumento: "Flautas",
+          instrumento: "Flauta",
           quantidade: 0,
         },
         {
-          instrumento: "Oboés",
+          instrumento: "Oboé",
           quantidade: 0,
         },
         {
-          instrumento: "Oboés D'Amore",
+          instrumento: "Oboé D'Amore",
           quantidade: 0,
         },
         {
@@ -138,79 +139,79 @@ class Database {
           quantidade: 0,
         },
         {
-          instrumento: "Fagotes",
+          instrumento: "Fagote",
           quantidade: 0,
         },
         {
-          instrumento: "Clarinetes",
+          instrumento: "Clarinete",
           quantidade: 0,
         },
         {
-          instrumento: "Clarinetes Alto",
+          instrumento: "Clarinete Alto",
           quantidade: 0,
         },
         {
-          instrumento: "Clarinetes Baixo",
+          instrumento: "Clarinete Baixo",
           quantidade: 0,
         },
         {
-          instrumento: "Saxofones Soprano",
+          instrumento: "Saxofone Soprano",
           quantidade: 0,
         },
         {
-          instrumento: "Saxofones Alto",
+          instrumento: "Saxofone Alto",
           quantidade: 0,
         },
         {
-          instrumento: "Saxofones Tenor",
+          instrumento: "Saxofone Tenor",
           quantidade: 0,
         },
         {
-          instrumento: "Saxofones Baritono",
+          instrumento: "Saxofone Baritono",
           quantidade: 0,
         },
         {
-          instrumento: "Saxofones Baixo",
+          instrumento: "Saxofone Baixo",
           quantidade: 0,
         },
         {
-          instrumento: "Trompetetes",
+          instrumento: "Trompetete",
           quantidade: 0,
         },
         {
-          instrumento: "Cornetes",
+          instrumento: "Cornete",
           quantidade: 0,
         },
         {
-          instrumento: "Flugelhorns",
+          instrumento: "Flugelhorn",
           quantidade: 0,
         },
         {
-          instrumento: "Trompas",
+          instrumento: "Trompa",
           quantidade: 0,
         },
         {
-          instrumento: "Trombonitos",
+          instrumento: "Trombonito",
           quantidade: 0,
         },
         {
-          instrumento: "Trombones",
+          instrumento: "Trombone",
           quantidade: 0,
         },
         {
-          instrumento: "Barítonos",
+          instrumento: "Barítono",
           quantidade: 0,
         },
         {
-          instrumento: "Eufônios",
+          instrumento: "Eufônio",
           quantidade: 0,
         },
         {
-          instrumento: "Tubas",
+          instrumento: "Tuba",
           quantidade: 0,
         },
         {
-          instrumento: "Órgão",
+          instrumento: "Organista",
           quantidade: 0,
         },
         {
@@ -218,6 +219,7 @@ class Database {
           quantidade: 0,
         },
       ],
+      visita: "",
     };
 
     if (await this.verificarSeBancoFoiCriado()) {
@@ -548,6 +550,20 @@ class Database {
     ministerio.quantidade = quantidade;
 
     ensaio.ministerio[posicao] = ministerio;
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
+
+  async salvarTexto(id: string, texto: string) {
+    const ensaios = await this.todosEnsaios();
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+    ensaio.visita = texto;
 
     ensaios[index] = ensaio;
 

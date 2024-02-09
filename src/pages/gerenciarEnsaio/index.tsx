@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
 import Pdf from "../../service/pdf";
+import { TextInput } from "react-native";
 
 export default function GerenciarEnsaio() {
   const route = useRoute();
@@ -19,10 +20,12 @@ export default function GerenciarEnsaio() {
   const { id } = route.params as { id: string };
 
   const [ensaio, setEnsaio] = useState<ensaioProps>();
+  const [textoVista, setTextoVisita] = useState<string>();
 
   const executar = async () => {
     const data = await database.buscarEnsaio(id);
     setEnsaio(data);
+    setTextoVisita(data.visita);
   };
 
   useEffect(() => {
@@ -51,6 +54,11 @@ export default function GerenciarEnsaio() {
       0
     );
     return totalMinisterio;
+  };
+
+  const salvartexto = async (texto: string) => {
+    setTextoVisita(texto);
+    const ensaio = await database.salvarTexto(id, texto);
   };
 
   return (
@@ -97,6 +105,28 @@ export default function GerenciarEnsaio() {
             subtitle={`Total: ${ensaio?.encarregados.length}`}
             left={(props) => <Avatar.Icon {...props} icon="folder" />}
             right={(props) => <IconButton {...props} icon="eye" />}
+          />
+        </Card>
+      </TouchableOpacity>
+
+      <TouchableOpacity activeOpacity={0.8}>
+        <Card>
+          <Card.Title
+            title="Visitas"
+            // subtitle={`Total: ${ensaio?.encarregados.length}`}
+            left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            right={(props) => <IconButton {...props} icon="eye" />}
+          />
+
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            style={{
+              height: 150,
+              justifyContent: "flex-start",
+            }}
+            value={textoVista}
+            onChangeText={async (value) => await salvartexto(value)}
           />
         </Card>
       </TouchableOpacity>

@@ -31,7 +31,7 @@ export default function Router() {
           name="Home"
           component={Home}
           options={{
-            title: "Lista de Ensaios",
+            title: "Lista de Ensaio",
             headerBackVisible: false,
           }}
         />
@@ -53,14 +53,14 @@ export default function Router() {
           name="GerenciarMusicos"
           component={gerenciarMusicos}
           options={{
-            title: "Musicos",
+            title: "Músico",
           }}
         />
         <Stack.Screen
           name="GerenciarOrganista"
           component={GerenciarOrganista}
           options={{
-            title: "Organistas",
+            title: "Organista",
           }}
         />
         <Stack.Screen
