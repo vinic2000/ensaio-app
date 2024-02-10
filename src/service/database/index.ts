@@ -11,6 +11,10 @@ type ensaioProps = {
   encarregados: encarregadoProps[];
   data: Date;
   visita: string;
+  irmandade: {
+    irmaos: number;
+    irmas: number;
+  };
 };
 
 type addEnsaioParam = {
@@ -220,6 +224,10 @@ class Database {
         },
       ],
       visita: "",
+      irmandade: {
+        irmaos: 0,
+        irmas: 0,
+      },
     };
 
     if (await this.verificarSeBancoFoiCriado()) {
@@ -564,6 +572,78 @@ class Database {
 
     const ensaio = ensaios[index];
     ensaio.visita = texto;
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
+
+  async addMaisUmIrmao(id: string) {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+
+    ensaio.irmandade.irmaos += 1;
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
+
+  async removerMenosUmIrmao(id: string) {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+
+    ensaio.irmandade.irmaos -= 1;
+
+    if (ensaio.irmandade.irmaos < 0) {
+      ensaio.irmandade.irmaos = 0;
+    }
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
+
+  async addMaisUmaIrma(id: string) {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+
+    ensaio.irmandade.irmas += 1;
+
+    ensaios[index] = ensaio;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    return ensaio;
+  }
+
+  async removerMenosUmaIrma(id: string) {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((e) => e.id === id);
+
+    const ensaio = ensaios[index];
+
+    ensaio.irmandade.irmas -= 1;
+
+    if (ensaio.irmandade.irmas < 0) {
+      ensaio.irmandade.irmas = 0;
+    }
 
     ensaios[index] = ensaio;
 

@@ -4,11 +4,13 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
 import Pdf from "../../service/pdf";
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
+import TextAreaResizable from "react-native-textarea-resizable";
+import CardIrmandade from "../../components/cardIrmandade";
 
 export default function GerenciarEnsaio() {
   const route = useRoute();
@@ -24,6 +26,7 @@ export default function GerenciarEnsaio() {
 
   const executar = async () => {
     const data = await database.buscarEnsaio(id);
+
     setEnsaio(data);
     setTextoVisita(data.visita);
   };
@@ -56,13 +59,13 @@ export default function GerenciarEnsaio() {
     return totalMinisterio;
   };
 
-  const salvartexto = async (texto: string) => {
-    setTextoVisita(texto);
-    const ensaio = await database.salvarTexto(id, texto);
-  };
-
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+        height: Dimensions.get("window").height * 0.95,
+      }}
+    >
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
@@ -109,7 +112,14 @@ export default function GerenciarEnsaio() {
         </Card>
       </TouchableOpacity>
 
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() =>
+          navigation.navigate("GerenciarVisita", {
+            id: id,
+          })
+        }
+      >
         <Card>
           <Card.Title
             title="Visitas"
@@ -117,19 +127,10 @@ export default function GerenciarEnsaio() {
             left={(props) => <Avatar.Icon {...props} icon="folder" />}
             right={(props) => <IconButton {...props} icon="eye" />}
           />
-
-          <TextInput
-            multiline={true}
-            numberOfLines={4}
-            style={{
-              height: 150,
-              justifyContent: "flex-start",
-            }}
-            value={textoVista}
-            onChangeText={async (value) => await salvartexto(value)}
-          />
         </Card>
       </TouchableOpacity>
+
+      <CardIrmandade id={id} ensaio={ensaio as ensaioProps} />
 
       <Button
         style={{
@@ -148,6 +149,6 @@ export default function GerenciarEnsaio() {
       >
         Gerar PDF
       </Button>
-    </>
+    </View>
   );
 }

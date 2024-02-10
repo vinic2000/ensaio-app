@@ -11,6 +11,7 @@ import GerenciarOrganista from "../pages/gerenciarOrganista";
 import GerenciarMinisterio from "../pages/gerenciarMinisterio";
 import GerenciarEncarregado from "../pages/gerenciarEncarregado";
 import Login from "../pages/login";
+import GerenciarVisita from "../pages/gerencarVisita";
 
 export default function Router() {
   const Stack = createNativeStackNavigator();
@@ -75,6 +76,13 @@ export default function Router() {
           component={GerenciarEncarregado}
           options={{
             title: "Encarregado",
+          }}
+        />
+        <Stack.Screen
+          name="GerenciarVisita"
+          component={GerenciarVisita}
+          options={{
+            title: "Visita",
           }}
         />
       </Stack.Navigator>
