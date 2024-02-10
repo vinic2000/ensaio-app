@@ -6,8 +6,9 @@ import { database, ensaioProps } from "../../service/database";
 type props = {
   id: string;
   ensaio: ensaioProps;
+  retorno: Function;
 };
-export default function CardIrmandade({ ensaio: data, id }: props) {
+export default function CardIrmandade({ ensaio: data, id, retorno }: props) {
   const [ativo, setAtivo] = useState(false);
 
   const [ensaio, setEnsaio] = useState<ensaioProps>();
@@ -20,7 +21,7 @@ export default function CardIrmandade({ ensaio: data, id }: props) {
     } else {
       result = await database.addMaisUmIrmao(id);
     }
-
+    retorno(result);
     setEnsaio(result);
   };
 
@@ -33,6 +34,7 @@ export default function CardIrmandade({ ensaio: data, id }: props) {
       result = await database.removerMenosUmIrmao(id);
     }
 
+    retorno(result);
     setEnsaio(result);
   };
 

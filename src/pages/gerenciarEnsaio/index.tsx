@@ -3,7 +3,7 @@ import {
   useIsFocused,
   useNavigation,
 } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
@@ -11,6 +11,7 @@ import Pdf from "../../service/pdf";
 import { TextInput, View } from "react-native";
 import TextAreaResizable from "react-native-textarea-resizable";
 import CardIrmandade from "../../components/cardIrmandade";
+import { total, totalGeral, totalOrganista } from "../../service/totais";
 
 export default function GerenciarEnsaio() {
   const route = useRoute();
@@ -104,7 +105,7 @@ export default function GerenciarEnsaio() {
       >
         <Card>
           <Card.Title
-            title="Encarreagados"
+            title="Encarregado"
             subtitle={`Total: ${ensaio?.encarregados.length}`}
             left={(props) => <Avatar.Icon {...props} icon="folder" />}
             right={(props) => <IconButton {...props} icon="eye" />}
@@ -130,7 +131,20 @@ export default function GerenciarEnsaio() {
         </Card>
       </TouchableOpacity>
 
-      <CardIrmandade id={id} ensaio={ensaio as ensaioProps} />
+      <CardIrmandade
+        id={id}
+        ensaio={ensaio as ensaioProps}
+        retorno={(data: ensaioProps) => setEnsaio(data)}
+      />
+      <Text
+        style={{
+          textAlign: "center",
+          marginTop: 10,
+          fontSize: 20,
+        }}
+      >
+        Total geral:{ensaio ? totalGeral(ensaio) : 0}
+      </Text>
 
       <Button
         style={{
