@@ -25,7 +25,7 @@ class Pdf {
 
   totalOrganista = () => {
     const organista = this.ensaio.musicos?.find(
-      (m) => m.instrumento === "Orgão"
+      (m) => m.instrumento === "Organista"
     );
 
     if (!organista) {
