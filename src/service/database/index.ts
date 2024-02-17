@@ -179,11 +179,11 @@ class Database {
           quantidade: 0,
         },
         {
-          instrumento: "Trompetete",
+          instrumento: "Trompete",
           quantidade: 0,
         },
         {
-          instrumento: "Cornete",
+          instrumento: "Cornet",
           quantidade: 0,
         },
         {

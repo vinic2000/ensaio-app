@@ -69,7 +69,7 @@ class Pdf {
                           )}</td>
                       </tr>
                       <tr>
-                          <td>Horário: 09h</td>
+                          <td></td>
                       </tr>
                   </table>
               </div>
