@@ -196,7 +196,11 @@ class Pdf {
     </html>
     `;
 
-    const { uri } = await Print.printToFileAsync({ html });
+    const { uri } = await Print.printToFileAsync({
+      html,
+      // height: 1250,
+      // width: 400,
+    });
     console.log("File has been saved to:", uri);
     await shareAsync(uri);
   }

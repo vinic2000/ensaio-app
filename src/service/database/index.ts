@@ -47,6 +47,7 @@ type encarregadoProps = {
   id: string;
   nome: string;
   comum_congregacao: string;
+  regional: boolean;
 };
 
 class Database {
@@ -76,6 +77,7 @@ class Database {
           id: uuid.v4().toString(),
           nome: encarregado,
           comum_congregacao: comum_congregacao,
+          regional: false,
         },
       ],
       ministerio: [
@@ -95,18 +97,18 @@ class Database {
           Cargo: "Cooperador De Jovens",
           quantidade: 0,
         },
-        {
-          Cargo: "Encarregado Regional",
-          quantidade: 0,
-        },
+        // {
+        //   Cargo: "Encarregado Regional",
+        //   quantidade: 0,
+        // },
         {
           Cargo: "Examinadora",
           quantidade: 0,
         },
-        {
-          Cargo: "Encarregado Local",
-          quantidade: 0,
-        },
+        // {
+        //   Cargo: "Encarregado Local",
+        //   quantidade: 1,
+        // },
       ],
       organistas: {
         examinadora: {
@@ -480,7 +482,8 @@ class Database {
   async adicionarEncarregado(
     id: string,
     nome: string,
-    comum_congregacao: string
+    comum_congregacao: string,
+    regional: boolean
   ): Promise<ensaioProps> {
     const ensaios = await this.todosEnsaios();
 
@@ -492,6 +495,7 @@ class Database {
       nome,
       comum_congregacao,
       id: uuid.v4().toString(),
+      regional,
     });
 
     ensaios[index] = ensaio;

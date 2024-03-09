@@ -22,7 +22,7 @@ export default function AdicionarEnsaio() {
   return (
     <Container>
       <Formik
-        initialValues={{ encarregado: "", congregacao: "", horario: "" }}
+        initialValues={{ encarregado: "", congregacao: "", horario: "16:30" }}
         onSubmit={async (values) => {
           try {
             const novoEnsaio = await database.addEnsaio({

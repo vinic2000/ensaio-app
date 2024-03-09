@@ -7,7 +7,10 @@ import {
   IconButton,
   Modal,
   Portal,
+  Switch,
+  Text,
   TextInput,
+  Tooltip,
 } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
 import { FlatList, View, StyleSheet } from "react-native";
@@ -23,6 +26,8 @@ export default function GerenciarEncarregado() {
   const [ensaio, setEnsaio] = useState<ensaioProps>();
 
   const [visible, setVisible] = useState(false);
+
+  const [regional, setRegional] = useState(false);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -44,12 +49,14 @@ export default function GerenciarEncarregado() {
 
   const adicionarEncarregado = async (
     nome: string,
-    comum_congregacao: string
+    comum_congregacao: string,
+    regional: boolean
   ) => {
     const data = await database.adicionarEncarregado(
       id,
       nome,
-      comum_congregacao
+      comum_congregacao,
+      regional
     );
 
     setEnsaio(data);
@@ -69,8 +76,10 @@ export default function GerenciarEncarregado() {
           <>
             <Card>
               <Card.Title
-                title={`Encarregado : ${item.nome}`}
-                subtitle={`Congregação: ${item.comum_congregacao}`}
+                title={`Encarregado ${item.regional ? "Regional" : "Local"} : ${
+                  item.nome
+                }`}
+                subtitle={`Congregação: ${item.comum_congregacao} `}
                 left={(props) => <Avatar.Icon {...props} icon="folder" />}
                 right={(props) => {
                   if (index !== 0) {
@@ -112,7 +121,11 @@ export default function GerenciarEncarregado() {
               comum_congregacao: "",
             }}
             onSubmit={async (values) =>
-              await adicionarEncarregado(values.nome, values.comum_congregacao)
+              await adicionarEncarregado(
+                values.nome,
+                values.comum_congregacao,
+                regional
+              )
             }
             validationSchema={toFormikValidationSchema(schema)}
           >
@@ -132,6 +145,12 @@ export default function GerenciarEncarregado() {
                   value={values.comum_congregacao}
                   placeholder="Comum congregação"
                   error={errors.comum_congregacao ? true : false}
+                />
+
+                <Text>Regional</Text>
+                <Switch
+                  onValueChange={() => setRegional(!regional)}
+                  value={regional}
                 />
 
                 <Button
