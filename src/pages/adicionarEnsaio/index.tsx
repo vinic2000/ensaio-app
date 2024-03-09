@@ -16,17 +16,19 @@ export default function AdicionarEnsaio() {
   const schema = z.object({
     encarregado: z.string(),
     congregacao: z.string(),
+    horario: z.string(),
   });
 
   return (
     <Container>
       <Formik
-        initialValues={{ encarregado: "", congregacao: "" }}
+        initialValues={{ encarregado: "", congregacao: "", horario: "" }}
         onSubmit={async (values) => {
           try {
             const novoEnsaio = await database.addEnsaio({
               comum_congregacao: values.congregacao,
               encarregado: values.encarregado,
+              horario: values.horario,
             });
 
             navigation.navigate("GerenciarEnsaio", { id: novoEnsaio.id });
@@ -63,6 +65,17 @@ export default function AdicionarEnsaio() {
               onBlur={handleBlur("encarregado")}
               value={values.encarregado}
               error={errors.encarregado ? true : false}
+            />
+            <Text variant="labelSmall">{errors.congregacao}</Text>
+
+            <TextInput
+              label="Horario"
+              placeholder="16:00"
+              style={style.input}
+              onChangeText={handleChange("horario")}
+              onBlur={handleBlur("horario")}
+              value={values.horario}
+              error={errors.horario ? true : false}
             />
             <Text variant="labelSmall">{errors.congregacao}</Text>
 

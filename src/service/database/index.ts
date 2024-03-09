@@ -3,6 +3,7 @@ import uuid from "react-native-uuid";
 
 type ensaioProps = {
   id: string;
+  horario: string;
   comum_congregacao: string;
   encarregado: string;
   musicos?: musicoProps[];
@@ -20,6 +21,7 @@ type ensaioProps = {
 type addEnsaioParam = {
   comum_congregacao: string;
   encarregado: string;
+  horario: string;
 };
 
 type musicoProps = {
@@ -61,9 +63,11 @@ class Database {
   async addEnsaio({
     comum_congregacao,
     encarregado,
+    horario,
   }: addEnsaioParam): Promise<ensaioProps> {
     const ensaio: ensaioProps = {
       data: new Date(),
+      horario: horario,
       comum_congregacao: comum_congregacao,
       encarregado: encarregado,
       id: uuid.v4().toString(),
@@ -112,7 +116,6 @@ class Database {
           quantidade: 0,
         },
       },
-
       musicos: [
         {
           instrumento: "Violino",

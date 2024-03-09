@@ -11,21 +11,26 @@
 
           <div class="row">
               <div class="col-12">
-                  <table class="table table-bordered">
-                      <tr>
-                          <td colspan="2" class="text-center table-active">ENSAIO LOCAL</td>
-                      </tr>
-                      <tr>
-                          <td rowspan="2" class="align-middle text-center">Localidade: ${this.ensaio.comum_congregacao.toUpperCase()}</td>
-                          <td>DATA: ${moment(this.ensaio.data).format(
-                            "DD/MM/YYYY"
-                          )}</td>
-                      </tr>
-                      <tr>
-                          <td>Horário: 09h</td>
-                      </tr>
-                  </table>
-              </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="https://1drv.ms/i/s!An26rFOie0Pqm7o7h3b7GhCYAAh93g?e=6113k7" width="250"/>
+                        </div>
+                        <div class="col-10">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td colspan="2" class="text-center table-active">ENSAIO LOCAL</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" class="align-middle text-center">Localidade: Vila Ariozona</td>
+                                    <td>05/09/1994</td>
+                                </tr>
+                                <tr>
+                                    <td> 16:00</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
           </div>
 
             <div class="row">
@@ -69,8 +74,6 @@
 
                 </table>
             </div> 
-
-
             <div class="col-6">
                 <table class="table table-bordered">
                     <tbody>
@@ -118,6 +121,20 @@
                             <td>Organista e músicos</td>
                             <td>${this.total().totalMusicosEOrganistas}</td>
                         </tr>
+                        <tr>
+                        <td>Irmãos e irmãs</td>
+                          <td>
+                            ${
+                              this.ensaio.irmandade.irmaos +
+                              this.ensaio.irmandade.irmas
+                            }
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>Total Geral</td>
+                            <td>${this.totalGeral()}</td>
+                        </tr>
+
                     </tbody>
                     </tbody>
 
