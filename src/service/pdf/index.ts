@@ -42,6 +42,14 @@ class Pdf {
     );
   };
 
+  TotalEncarregado = (regional: boolean) => {
+    const total: number = this.ensaio.encarregados.filter(
+      (encarregado) => encarregado.regional === regional
+    ).length;
+
+    return total;
+  };
+
   async gearPdf() {
     const html = `
     <!doctype html>
@@ -54,7 +62,6 @@ class Pdf {
       </head>
       <body>
         <div class="container">
-
           <div class="row">
               <div class="col-12">
                     <div class="row">
@@ -137,6 +144,16 @@ class Pdf {
 
                           `;
                         })}
+
+                        <tr>
+                          <td>${this.TotalEncarregado(true)}</td>
+                          <td>Encarregado Regional</td>
+                        </tr>
+
+                        <tr>
+                          <td>${this.TotalEncarregado(false)}</td>
+                          <td>Encarregado Local</td>
+                        </tr>
 
                     </tbody>
 
