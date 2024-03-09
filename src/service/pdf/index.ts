@@ -1,4 +1,3 @@
-import { pdf } from "@react-pdf/renderer";
 import { ensaioProps } from "../database";
 
 import * as Print from "expo-print";
@@ -58,21 +57,27 @@ class Pdf {
 
           <div class="row">
               <div class="col-12">
-                  <table class="table table-bordered">
-                      <tr>
-                          <td colspan="2" class="text-center table-active">ENSAIO LOCAL</td>
-                      </tr>
-                      <tr>
-                          <td rowspan="2" class="align-middle text-center">Localidade: ${this.ensaio.comum_congregacao.toUpperCase()}</td>
-                          <td>DATA: ${moment(this.ensaio.data).format(
-                            "DD/MM/YYYY"
-                          )}</td>
-                      </tr>
-                      <tr>
-                          <td></td>
-                      </tr>
-                  </table>
-              </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td colspan="2" class="text-center table-active">ENSAIO LOCAL</td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="2" class="align-middle text-center">${
+                                      this.ensaio.comum_congregacao
+                                    }</td>
+                                    <td>${moment(this.ensaio.data).format(
+                                      "DD-MM-YYYY"
+                                    )}</td>
+                                </tr>
+                                <tr>
+                                    <td>${this.ensaio.horario}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
           </div>
 
             <div class="row">
