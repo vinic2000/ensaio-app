@@ -343,6 +343,7 @@ class Database {
     let quantidade = musico.quantidade + 1;
 
     musico.quantidade = quantidade;
+
     musicos[musicoIndex as number] = musico;
     ensaio.musicos = musicos;
     ensaios[index] = ensaio;
@@ -352,10 +353,7 @@ class Database {
     return ensaio;
   }
 
-  async addMenosUm(
-    instrumento: string,
-    id: string
-  ): Promise<ensaioProps | null> {
+  async addMenosUm(instrumento: string, id: string): Promise<ensaioProps> {
     const ensaios = await this.todosEnsaios();
 
     const index = ensaios.findIndex((e) => e.id === id);
@@ -383,7 +381,7 @@ class Database {
 
     await AsyncStorage.setItem("database", JSON.stringify(ensaios));
 
-    return ensaio;
+    return ensaio as ensaioProps;
   }
 
   async adicionarOrganista(
