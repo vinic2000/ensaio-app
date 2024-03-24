@@ -24,13 +24,28 @@ class Pdf {
 
   totalOrganista = () => {
     const organista = this.ensaio.musicos?.find(
-      (m) => m.instrumento === "Orgão"
+      (m) => m.instrumento === "Organista"
     );
 
+    console.log("organista", organista);
     if (!organista) {
       return 0;
     }
+
     return organista.quantidade;
+  };
+
+  totalMusicos = () => {
+    const musicos = this.ensaio.musicos?.filter(
+      (m) => m.instrumento! !== "Organista"
+    );
+
+    let soma = 0;
+    musicos?.forEach((m) => {
+      soma += m.quantidade;
+    });
+
+    return soma;
   };
 
   totalGeral = () => {
@@ -119,10 +134,7 @@ class Pdf {
                       <td>Organistas</td>
                     </tr>
                     <tr>
-                        <td>${
-                          (this.total().totalMusicosEOrganistas as number) -
-                          this.totalOrganista()
-                        }</td>
+                        <td>${this.totalMusicos()}</td>
                         <td>Músico</td>
                     </tr>
 

@@ -42,8 +42,22 @@ export default function CardClique({ maisUm, menosUm, item, tipo }: props) {
         {verificarTipo()}
         {!ativo || (
           <Card.Actions>
-            <IconButton icon={"plus"} onPress={async () => await maisUm()} />
-            <IconButton icon={"minus"} onPress={async () => await menosUm()} />
+            <IconButton
+              icon={"plus"}
+              onPress={async () => {
+                item.quantidade = item.quantidade + 1;
+                await maisUm();
+              }}
+            />
+            <IconButton
+              icon={"minus"}
+              onPress={async () => {
+                if (item.quantidade > 0) {
+                  item.quantidade = item.quantidade - 1;
+                  await menosUm();
+                }
+              }}
+            />
           </Card.Actions>
         )}
       </Card>

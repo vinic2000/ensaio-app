@@ -40,14 +40,13 @@ export default function GerenciarMusicos() {
   };
 
   const addMaisUm = async (instrumento: string) => {
-    console.log("instrumento", instrumento);
     const data = await database.addMiasUm(instrumento, id);
     setEnsaio(data);
   };
 
   const MenosUm = async (instrumento: string) => {
     const data = await database.addMenosUm(instrumento, id);
-    setEnsaio(data as ensaioProps);
+    setEnsaio(data);
   };
 
   return (
@@ -63,12 +62,14 @@ export default function GerenciarMusicos() {
       <FlatList
         data={searchQuery.length ? queryMusicos : ensaio?.musicos}
         renderItem={({ item }) => (
-          <CardClique
-            tipo="instrumentos"
-            item={item}
-            maisUm={async () => await addMaisUm(item.instrumento)}
-            menosUm={async () => await MenosUm(item.instrumento)}
-          />
+          <>
+            <CardClique
+              tipo="instrumentos"
+              item={item}
+              maisUm={async () => await addMaisUm(item.instrumento)}
+              menosUm={async () => await MenosUm(item.instrumento)}
+            />
+          </>
         )}
       />
     </>

@@ -3,7 +3,6 @@ import { ensaioProps } from "../database";
 const total = (ensaio: ensaioProps) => {
   let totalMusicosEOrganistas = 0;
 
-  console.log(ensaio.musicos);
   if (ensaio.musicos) {
     totalMusicosEOrganistas = ensaio.musicos?.reduce((total, musicos) => {
       return (total += musicos.quantidade);
