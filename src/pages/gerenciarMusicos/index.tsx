@@ -40,6 +40,7 @@ export default function GerenciarMusicos() {
   };
 
   const addMaisUm = async (instrumento: string) => {
+    console.log("instrumento", instrumento);
     const data = await database.addMiasUm(instrumento, id);
     setEnsaio(data);
   };
