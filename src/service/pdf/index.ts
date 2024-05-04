@@ -4,6 +4,8 @@ import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import moment from "moment";
 
+import * as FileSystem from "expo-file-system";
+
 class Pdf {
   constructor(private ensaio: ensaioProps) {}
 
@@ -224,12 +226,34 @@ class Pdf {
     </html>
     `;
 
-    const { uri } = await Print.printToFileAsync({
-      html,
-      // height: 1250,
-      // width: 400,
-    });
-    await shareAsync(uri);
+    try {
+      const { uri } = await Print.printToFileAsync({
+        html,
+      });
+
+      const dir = FileSystem.documentDirectory + "ensaio/";
+
+      const director = await FileSystem.getInfoAsync(dir);
+
+      if (!director.exists) {
+        await FileSystem.makeDirectoryAsync(dir);
+      }
+
+      const arquivo =
+        dir +
+        `${moment(this.ensaio.data).format("DDMMYYYY")}-${
+          this.ensaio.horario
+        }.pdf`;
+
+      await FileSystem.copyAsync({
+        from: uri,
+        to: arquivo,
+      });
+
+      await shareAsync(arquivo);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
