@@ -27,7 +27,6 @@ class Pdf {
       (m) => m.instrumento === "Organista"
     );
 
-    console.log("organista", organista);
     if (!organista) {
       return 0;
     }
@@ -230,7 +229,6 @@ class Pdf {
       // height: 1250,
       // width: 400,
     });
-    console.log("File has been saved to:", uri);
     await shareAsync(uri);
   }
 }

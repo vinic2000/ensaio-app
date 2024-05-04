@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import {
   Avatar,
@@ -10,7 +10,6 @@ import {
   Switch,
   Text,
   TextInput,
-  Tooltip,
 } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
 import { FlatList, View, StyleSheet } from "react-native";
@@ -20,6 +19,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 
 export default function GerenciarEncarregado() {
   const route = useRoute();
+  const navigate = useNavigation();
 
   const { id } = route.params as { id: string };
 
@@ -33,17 +33,21 @@ export default function GerenciarEncarregado() {
   const hideModal = () => setVisible(false);
   const containerStyle = { backgroundColor: "white", padding: 20 };
 
+  const executar = async () => {
+    const data = await database.buscarEnsaio(id);
+    setEnsaio(data);
+  };
+
+  if (navigate.isFocused()) {
+    executar();
+  }
+
   const schema = z.object({
     nome: z.string(),
     comum_congregacao: z.string(),
   });
 
   useEffect(() => {
-    const executar = async () => {
-      const data = await database.buscarEnsaio(id);
-      setEnsaio(data);
-    };
-
     executar();
   }, []);
 

@@ -50,6 +50,12 @@ type encarregadoProps = {
   regional: boolean;
 };
 
+type atualizarEnsaioProps = {
+  horario: string;
+  comum_congregacao: string;
+  encarregado: string;
+};
+
 class Database {
   private async verificarSeBancoFoiCriado(): Promise<boolean> {
     const data = JSON.parse((await AsyncStorage.getItem("database")) as string);
@@ -655,6 +661,25 @@ class Database {
     await AsyncStorage.setItem("database", JSON.stringify(ensaios));
 
     return ensaio;
+  }
+
+  async atualizarEnsaio(
+    id: string,
+    data: atualizarEnsaioProps
+  ): Promise<ensaioProps> {
+    const ensaios = await this.todosEnsaios();
+
+    const index = ensaios.findIndex((s) => s.id === id);
+
+    ensaios[index].comum_congregacao = data.comum_congregacao;
+    ensaios[index].horario = data.horario;
+    ensaios[index].encarregado = data.encarregado;
+
+    await AsyncStorage.setItem("database", JSON.stringify(ensaios));
+
+    console.log("Arquivo salvo com sucesso");
+
+    return ensaios[index];
   }
 }
 

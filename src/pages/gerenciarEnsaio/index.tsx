@@ -3,16 +3,16 @@ import {
   useIsFocused,
   useNavigation,
 } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
 import Pdf from "../../service/pdf";
-import { TextInput, View } from "react-native";
-import TextAreaResizable from "react-native-textarea-resizable";
+import { View } from "react-native";
 import CardIrmandade from "../../components/cardIrmandade";
-import { total, totalGeral, totalOrganista } from "../../service/totais";
-
+import { totalGeral } from "../../service/totais";
+import { StyleSheet } from "react-native";
+import Router from "../../router/router";
 export default function GerenciarEnsaio() {
   const route = useRoute();
 
@@ -27,7 +27,6 @@ export default function GerenciarEnsaio() {
 
   const executar = async () => {
     const data = await database.buscarEnsaio(id);
-
     setEnsaio(data);
     setTextoVisita(data.visita);
   };
@@ -147,13 +146,14 @@ export default function GerenciarEnsaio() {
       </Text>
 
       <Button
-        style={{
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-          padding: 4,
-          borderRadius: 0,
-        }}
+        style={style.buttonAlterar}
+        onPress={() => navigation.navigate("EditarEnsaio", { id: ensaio.id })}
+      >
+        Alterar
+      </Button>
+
+      <Button
+        style={style.buttonGerar}
         // onPress={() => navigation.navigate("Pdf", { ensaio: ensaio })}
         onPress={async () => {
           const pdf = new Pdf(ensaio as ensaioProps);
@@ -166,3 +166,22 @@ export default function GerenciarEnsaio() {
     </View>
   );
 }
+
+const style = StyleSheet.create({
+  buttonGerar: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    padding: 4,
+    borderRadius: 0,
+    height: 50,
+  },
+
+  buttonAlterar: {
+    position: "absolute",
+    bottom: 55,
+    width: "100%",
+    padding: 4,
+    borderRadius: 0,
+  },
+});
