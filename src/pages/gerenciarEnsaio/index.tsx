@@ -145,6 +145,17 @@ export default function GerenciarEnsaio() {
         Total geral:{ensaio ? totalGeral(ensaio) : 0}
       </Text>
 
+      <Text
+        style={{
+          textAlign: "center",
+          marginTop: 10,
+          fontSize: 20,
+        }}
+      >
+        Total irmandade:
+        {ensaio ? ensaio.irmandade.irmaos + ensaio.irmandade.irmas : 0}
+      </Text>
+
       <Button
         style={style.buttonAlterar}
         onPress={() => navigation.navigate("EditarEnsaio", { id: ensaio.id })}
