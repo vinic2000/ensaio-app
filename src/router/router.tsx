@@ -12,6 +12,7 @@ import GerenciarMinisterio from "../pages/gerenciarMinisterio";
 import GerenciarEncarregado from "../pages/gerenciarEncarregado";
 import Login from "../pages/login";
 import GerenciarVisita from "../pages/gerencarVisita";
+import EditarEnsaio from "../pages/editarEnsaio";
 
 export default function Router() {
   const Stack = createNativeStackNavigator();
@@ -83,6 +84,14 @@ export default function Router() {
           component={GerenciarVisita}
           options={{
             title: "Visita",
+          }}
+        />
+
+        <Stack.Screen
+          name="EditarEnsaio"
+          component={EditarEnsaio}
+          options={{
+            title: "Editar Ensaio",
           }}
         />
       </Stack.Navigator>
