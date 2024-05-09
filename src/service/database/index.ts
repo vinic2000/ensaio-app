@@ -54,6 +54,7 @@ type atualizarEnsaioProps = {
   horario: string;
   comum_congregacao: string;
   encarregado: string;
+  data: Date;
 };
 
 class Database {
@@ -674,6 +675,7 @@ class Database {
     ensaios[index].comum_congregacao = data.comum_congregacao;
     ensaios[index].horario = data.horario;
     ensaios[index].encarregado = data.encarregado;
+    ensaios[index].data = data.data;
 
     await AsyncStorage.setItem("database", JSON.stringify(ensaios));
 

@@ -9,6 +9,7 @@ import { database } from "../../service/database";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect } from "react";
+import moment from "moment";
 
 export default function EditarEnsaio() {
   const route = useRoute();
@@ -27,13 +28,24 @@ export default function EditarEnsaio() {
       congregacao: "",
       encarregado: "",
       horario: "",
+      data: "",
     },
-    onSubmit: async ({ congregacao, encarregado, horario }) => {
+    onSubmit: async ({ congregacao, encarregado, horario, data }) => {
       try {
+        const dataDividida = data.split("/");
+
+        const dataEnviar = moment()
+          .set("date", parseInt(dataDividida[0]))
+          .set("month", parseInt(dataDividida[1]) - 1)
+          .set("year", parseInt(dataDividida[2]));
+
+        console.log("dataEnviar", dataEnviar);
+
         await database.atualizarEnsaio(id, {
           comum_congregacao: congregacao,
           encarregado,
           horario,
+          data: dataEnviar.toDate(),
         });
 
         navigate.navigate("GerenciarEnsaio", { id: id });
@@ -52,6 +64,7 @@ export default function EditarEnsaio() {
           formik.setFieldValue("encarregado", data.encarregado);
           formik.setFieldValue("congregacao", data.comum_congregacao);
           formik.setFieldValue("horario", data.horario);
+          formik.setFieldValue("data", moment(data.data).format("DD/MM/YYYY"));
         }
       })
       .catch();
@@ -81,7 +94,18 @@ export default function EditarEnsaio() {
           value={formik.values.encarregado}
           error={formik.errors.encarregado ? true : false}
         />
-        <Text variant="labelSmall">{formik.errors.congregacao}</Text>
+        <Text variant="labelSmall">{formik.errors.encarregado}</Text>
+
+        <TextInput
+          label="Data"
+          placeholder="01/01/2024"
+          style={style.input}
+          onChangeText={formik.handleChange("data")}
+          onBlur={formik.handleBlur("data")}
+          value={formik.values.data}
+          error={formik.errors.data ? true : false}
+        />
+        <Text variant="labelSmall">{formik.errors.data}</Text>
 
         <TextInput
           label="Horario"
@@ -92,7 +116,7 @@ export default function EditarEnsaio() {
           value={formik.values.horario}
           error={formik.errors.horario ? true : false}
         />
-        <Text variant="labelSmall">{formik.errors.congregacao}</Text>
+        <Text variant="labelSmall">{formik.errors.horario}</Text>
 
         <Button
           mode="contained"
