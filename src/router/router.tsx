@@ -13,6 +13,7 @@ import GerenciarEncarregado from "../pages/gerenciarEncarregado";
 import Login from "../pages/login";
 import GerenciarVisita from "../pages/gerencarVisita";
 import EditarEnsaio from "../pages/editarEnsaio";
+import GerenciarHinos from "../pages/gerenciarHinos";
 
 export default function Router() {
   const Stack = createNativeStackNavigator();
@@ -84,6 +85,14 @@ export default function Router() {
           component={GerenciarVisita}
           options={{
             title: "Visita",
+          }}
+        />
+
+        <Stack.Screen
+          name="Hinos"
+          component={GerenciarHinos}
+          options={{
+            title: "Hinos Ensaiados",
           }}
         />
 

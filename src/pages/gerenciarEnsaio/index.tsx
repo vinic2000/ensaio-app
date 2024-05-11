@@ -130,6 +130,21 @@ export default function GerenciarEnsaio() {
         </Card>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("Hinos", { id: id })}
+      >
+        <Card>
+          <Card.Title
+            title="Hinos"
+            subtitle={`Total: ${ensaio?.hinos.length}`}
+            // subtitle={`Total: ${ensaio?.encarregados.length}`}
+            left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            right={(props) => <IconButton {...props} icon="eye" />}
+          />
+        </Card>
+      </TouchableOpacity>
+
       <CardIrmandade
         id={id}
         ensaio={ensaio as ensaioProps}

@@ -16,6 +16,7 @@ type ensaioProps = {
     irmaos: number;
     irmas: number;
   };
+  hinos: number[];
 };
 
 type addEnsaioParam = {
@@ -55,6 +56,7 @@ type atualizarEnsaioProps = {
   comum_congregacao: string;
   encarregado: string;
   data: Date;
+  hinos: number[];
 };
 
 class Database {
@@ -240,6 +242,7 @@ class Database {
         irmaos: 0,
         irmas: 0,
       },
+      hinos: [],
     };
 
     if (await this.verificarSeBancoFoiCriado()) {
@@ -677,11 +680,22 @@ class Database {
     ensaios[index].encarregado = data.encarregado;
     ensaios[index].data = data.data;
 
+    if (data.hinos.length) {
+      ensaios[index].hinos = data.hinos;
+    }
+
     await AsyncStorage.setItem("database", JSON.stringify(ensaios));
 
     console.log("Arquivo salvo com sucesso");
 
     return ensaios[index];
+  }
+
+  async atualizarHinos(id: string, hinos: number[]): Promise<ensaioProps> {
+    let ensaio = await this.buscarEnsaio(id);
+    ensaio.hinos = hinos;
+    console.log("ensaio.hinos", ensaio.hinos);
+    return await this.atualizarEnsaio(id, ensaio);
   }
 }
 
