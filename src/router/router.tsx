@@ -14,6 +14,7 @@ import Login from "../pages/login";
 import GerenciarVisita from "../pages/gerencarVisita";
 import EditarEnsaio from "../pages/editarEnsaio";
 import GerenciarHinos from "../pages/gerenciarHinos";
+import Config from "../pages/config";
 
 export default function Router() {
   const Stack = createNativeStackNavigator();
@@ -101,6 +102,14 @@ export default function Router() {
           component={EditarEnsaio}
           options={{
             title: "Editar Ensaio",
+          }}
+        />
+
+        <Stack.Screen
+          name="Config"
+          component={Config}
+          options={{
+            title: "Configurações",
           }}
         />
       </Stack.Navigator>

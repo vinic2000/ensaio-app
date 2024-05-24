@@ -1,5 +1,6 @@
 import { PaperProvider } from "react-native-paper";
 import Router from "./router/router";
+import { StatusBar } from "react-native";
 
 export default function Index() {
   const theme = {
@@ -52,6 +53,7 @@ export default function Index() {
   };
   return (
     <>
+      <StatusBar animated={true} networkActivityIndicatorVisible />
       <PaperProvider theme={theme}>
         <Router />
       </PaperProvider>

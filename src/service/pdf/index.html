@@ -8,24 +8,24 @@
       </head>
       <body>
         <div class="container">
-
           <div class="row">
               <div class="col-12">
                     <div class="row">
-                        <div class="col-2">
-                            <img src="./logo.jpg" width="250"/>
-                        </div>
-                        <div class="col-10">
+                        <div class="col-12">
                             <table class="table table-bordered">
                                 <tr>
                                     <td colspan="2" class="text-center table-active">ENSAIO LOCAL</td>
                                 </tr>
                                 <tr>
-                                    <td rowspan="2" class="align-middle text-center">Localidade: Vila Ariozona</td>
-                                    <td>05/09/1994</td>
+                                    <td rowspan="2" class="align-middle text-center">${
+                                      this.ensaio.comum_congregacao
+                                    }</td>
+                                    <td>${moment(this.ensaio.data).format(
+                                      "DD-MM-YYYY"
+                                    )}</td>
                                 </tr>
                                 <tr>
-                                    <td> 16:00</td>
+                                    <td>${this.ensaio.horario}</td>
                                 </tr>
                             </table>
                         </div>
@@ -65,10 +65,7 @@
                       <td>Organistas</td>
                     </tr>
                     <tr>
-                        <td>${
-                          (this.total().totalMusicosEOrganistas as number) -
-                          this.totalOrganista()
-                        }</td>
+                        <td>${this.totalMusicos()}</td>
                         <td>Músico</td>
                     </tr>
 
@@ -90,6 +87,16 @@
 
                           `;
                         })}
+
+                        <tr>
+                          <td>${this.TotalEncarregado(true)}</td>
+                          <td>Encarregado Regional</td>
+                        </tr>
+
+                        <tr>
+                          <td>${this.TotalEncarregado(false)}</td>
+                          <td>Encarregado Local</td>
+                        </tr>
 
                     </tbody>
 

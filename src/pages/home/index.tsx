@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { database, ensaioProps } from "../../service/database";
 import moment from "moment";
 
+import { backup } from "../../service/backup/backup.service";
+
 export default function Home() {
   const [ensaios, setEnsaios] = useState<ensaioProps[]>();
 
@@ -15,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     const executar = async () => {
+      await backup();
       const data = await database.todosEnsaios();
       setEnsaios(data);
     };
@@ -82,6 +85,7 @@ export default function Home() {
           </>
         )}
       />
+
       <Button
         icon="plus"
         mode="contained"
@@ -91,6 +95,17 @@ export default function Home() {
         }}
       >
         Novo ensaio
+      </Button>
+
+      <Button
+        // icon=""
+        mode="outlined"
+        onPress={() => navigation.navigate("Config")}
+        style={{
+          borderRadius: 0,
+        }}
+      >
+        configurações
       </Button>
     </>
   );
