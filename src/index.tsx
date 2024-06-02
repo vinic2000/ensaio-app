@@ -2,6 +2,8 @@ import { PaperProvider } from "react-native-paper";
 import Router from "./router/router";
 import { StatusBar } from "react-native";
 
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 export default function Index() {
   const theme = {
     colors: {
@@ -54,7 +56,12 @@ export default function Index() {
   return (
     <>
       <StatusBar animated={true} networkActivityIndicatorVisible />
-      <PaperProvider theme={theme}>
+      <PaperProvider
+        theme={theme}
+        settings={{
+          icon: (props) => <Ionicons {...props} />,
+        }}
+      >
         <Router />
       </PaperProvider>
     </>

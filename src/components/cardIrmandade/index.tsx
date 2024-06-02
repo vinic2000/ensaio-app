@@ -47,8 +47,12 @@ export default function CardIrmandade({ ensaio: data, id, retorno }: props) {
       <Card onPress={() => setAtivo(!ativo)}>
         <Card.Title
           title={"Irmandade"}
+          subtitleVariant="bodyLarge"
+          subtitle={`Total irmandade: ${
+            data ? data.irmandade.irmaos + data.irmandade.irmas : 0
+          }`}
           //   subtitle={`Quantidade: ${dados.quantidade}`}
-          left={(props) => <Avatar.Icon {...props} icon="folder" />}
+          left={(props) => <Avatar.Icon {...props} icon="people-sharp" />}
         />
 
         {!ativo || (
@@ -57,11 +61,11 @@ export default function CardIrmandade({ ensaio: data, id, retorno }: props) {
               Irmãos: {ensaio?.irmandade.irmaos || 0}
             </Text>
             <IconButton
-              icon={"plus"}
+              icon={"caret-up-outline"}
               onPress={async () => await addMaisUm(false)}
             />
             <IconButton
-              icon={"minus"}
+              icon={"caret-down-outline"}
               onPress={async () => await removerMenosUm(false)}
             />
           </Card.Actions>
@@ -73,11 +77,11 @@ export default function CardIrmandade({ ensaio: data, id, retorno }: props) {
               Irmãs : {ensaio?.irmandade.irmas || 0}
             </Text>
             <IconButton
-              icon={"plus"}
+              icon={"caret-up-outline"}
               onPress={async () => await addMaisUm(true)}
             />
             <IconButton
-              icon={"minus"}
+              icon={"caret-down-outline"}
               onPress={async () => await removerMenosUm(true)}
             />
           </Card.Actions>

@@ -1,5 +1,5 @@
 {
-  "name": "App ensaio ccb",
+  "name": "Ensaio",
   "version": "0.8.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-vector-icons/ionicons": "^7.3.1-alpha.9",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@react-pdf/renderer": "^3.3.4",

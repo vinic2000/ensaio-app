@@ -53,7 +53,7 @@ export default function Home() {
               <Card.Title
                 title={`Congregação ${item.comum_congregacao}`}
                 subtitle={`Encarregado ${item.encarregado}`}
-                left={(props) => <Avatar.Icon {...props} icon="folder" />}
+                left={(props) => <Avatar.Icon {...props} icon="people" />}
                 right={(props) => (
                   <>
                     <IconButton
@@ -65,7 +65,7 @@ export default function Home() {
                     />
                     <IconButton
                       {...props}
-                      icon="delete"
+                      icon="trash-bin-sharp"
                       onPress={async () => await deletarEnsaio(item.id)}
                     />
                   </>
@@ -87,7 +87,7 @@ export default function Home() {
       />
 
       <Button
-        icon="plus"
+        icon="newspaper"
         mode="contained"
         onPress={() => navigation.navigate("AddEnsaio")}
         style={{
@@ -98,7 +98,7 @@ export default function Home() {
       </Button>
 
       <Button
-        // icon=""
+        icon="settings"
         mode="outlined"
         onPress={() => navigation.navigate("Config")}
         style={{

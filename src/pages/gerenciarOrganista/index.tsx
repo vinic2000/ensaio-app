@@ -39,10 +39,13 @@ export default function GerenciarOrganista() {
         />
         <Card.Actions>
           <IconButton
-            icon={"minus"}
+            icon={"caret-down-outline"}
             onPress={async () => await remover(false)}
           />
-          <IconButton icon={"plus"} onPress={async () => await add(false)} />
+          <IconButton
+            icon={"caret-up-outline"}
+            onPress={async () => await add(false)}
+          />
         </Card.Actions>
       </Card>
 
@@ -53,7 +56,10 @@ export default function GerenciarOrganista() {
         />
         <Card.Actions>
           <IconButton icon={"minus"} onPress={async () => remover(true)} />
-          <IconButton icon={"plus"} onPress={async () => add(true)} />
+          <IconButton
+            icon={"caret-up-outline"}
+            onPress={async () => add(true)}
+          />
         </Card.Actions>
       </Card>
     </View>

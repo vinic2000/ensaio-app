@@ -103,7 +103,7 @@ export default function GerenciarEncarregado() {
       />
 
       <Button
-        icon={"plus"}
+        icon={"add-circle"}
         onPress={showModal}
         mode="contained-tonal"
         style={{
@@ -158,7 +158,7 @@ export default function GerenciarEncarregado() {
                 />
 
                 <Button
-                  icon={"plus"}
+                  icon={"add-circle"}
                   onPress={async () => await handleSubmit()}
                   mode="contained"
                   style={{

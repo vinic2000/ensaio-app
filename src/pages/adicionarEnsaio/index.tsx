@@ -80,7 +80,7 @@ export default function AdicionarEnsaio() {
             <Text variant="labelSmall">{errors.congregacao}</Text>
 
             <Button
-              icon="plus"
+              icon="caret-up-outline"
               mode="contained"
               onPress={async () => await handleSubmit()}
               style={style.button}

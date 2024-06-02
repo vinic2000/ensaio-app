@@ -9,6 +9,7 @@ export default function Config() {
       <Text style={style.text}>Backup e restauração</Text>
 
       <Button
+        icon={"cloud-download-sharp"}
         mode="contained"
         style={style.button}
         onPress={async () => await backup()}
@@ -16,6 +17,7 @@ export default function Config() {
         Backup
       </Button>
       <Button
+        icon={"cloud-upload-sharp"}
         mode="contained"
         style={style.button}
         onPress={async () => await restore()}

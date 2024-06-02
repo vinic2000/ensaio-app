@@ -75,7 +75,9 @@ export default function GerenciarEnsaio() {
         <Card.Title
           title="Musicos"
           subtitle={`Total: ${contarMusicos()}`}
-          left={(props) => <Avatar.Icon {...props} icon="violin" />}
+          left={(props) => (
+            <Avatar.Icon {...props} icon="musical-notes-sharp" />
+          )}
           right={(props) => <IconButton {...props} icon="eye" />}
         />
       </TouchableOpacity>
@@ -90,7 +92,7 @@ export default function GerenciarEnsaio() {
           <Card.Title
             title="Ministerio"
             subtitle={`Total: ${contarMinisterio()}`}
-            left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            left={(props) => <Avatar.Icon {...props} icon="people" />}
             right={(props) => <IconButton {...props} icon="eye" />}
           />
         </Card>
@@ -105,8 +107,8 @@ export default function GerenciarEnsaio() {
         <Card>
           <Card.Title
             title="Encarregado"
-            subtitle={`Total: ${ensaio?.encarregados.length}`}
-            left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            subtitle={`Total: ${ensaio?.encarregados.length || 0}`}
+            left={(props) => <Avatar.Icon {...props} icon="musical-note" />}
             right={(props) => <IconButton {...props} icon="eye" />}
           />
         </Card>
@@ -124,7 +126,7 @@ export default function GerenciarEnsaio() {
           <Card.Title
             title="Visitas"
             // subtitle={`Total: ${ensaio?.encarregados.length}`}
-            left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            left={(props) => <Avatar.Icon {...props} icon="people-sharp" />}
             right={(props) => <IconButton {...props} icon="eye" />}
           />
         </Card>
@@ -137,9 +139,11 @@ export default function GerenciarEnsaio() {
         <Card>
           <Card.Title
             title="Hinos"
-            subtitle={`Total: ${ensaio?.hinos.length}`}
+            subtitle={`Total: ${ensaio?.hinos.length || 0}`}
             // subtitle={`Total: ${ensaio?.encarregados.length}`}
-            left={(props) => <Avatar.Icon {...props} icon="folder" />}
+            left={(props) => (
+              <Avatar.Icon {...props} icon="musical-note-sharp" />
+            )}
             right={(props) => <IconButton {...props} icon="eye" />}
           />
         </Card>
@@ -150,30 +154,18 @@ export default function GerenciarEnsaio() {
         ensaio={ensaio as ensaioProps}
         retorno={(data: ensaioProps) => setEnsaio(data)}
       />
-      <Text
-        style={{
-          textAlign: "center",
-          marginTop: 10,
-          fontSize: 20,
-        }}
-      >
-        Total geral:{ensaio ? totalGeral(ensaio) : 0}
-      </Text>
 
-      <Text
-        style={{
-          textAlign: "center",
-          marginTop: 10,
-          fontSize: 20,
-        }}
-      >
-        Total irmandade:
-        {ensaio ? ensaio.irmandade.irmaos + ensaio.irmandade.irmas : 0}
-      </Text>
+      <Card>
+        <Card.Title
+          title={`Total geral: ${ensaio ? totalGeral(ensaio) : 0}`}
+          left={(props) => <Avatar.Icon {...props} icon="people-sharp" />}
+        />
+      </Card>
 
       <Button
         style={style.buttonAlterar}
         onPress={() => navigation.navigate("EditarEnsaio", { id: ensaio.id })}
+        icon={"create-outline"}
       >
         Alterar
       </Button>
@@ -186,6 +178,7 @@ export default function GerenciarEnsaio() {
           pdf.gearPdf();
         }}
         mode="contained"
+        icon={"add-circle"}
       >
         Gerar PDF
       </Button>
