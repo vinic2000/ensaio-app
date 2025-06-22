@@ -1,18 +1,18 @@
 import {
   useRoute,
   useIsFocused,
-  useNavigation,
+  useNavigation
 } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, IconButton, Text } from "react-native-paper";
 import { database, ensaioProps } from "../../service/database";
-import Pdf from "../../service/pdf";
+import Pdf from "../../service/pdf/PdfCompleto";
 import { View } from "react-native";
 import CardIrmandade from "../../components/cardIrmandade";
 import { totalGeral } from "../../service/totais";
 import { StyleSheet } from "react-native";
-import Router from "../../router/router";
+import { QuadroInferior } from "./quadroInferior";
 export default function GerenciarEnsaio() {
   const route = useRoute();
 
@@ -115,9 +115,7 @@ export default function GerenciarEnsaio() {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() =>
-          navigation.navigate("GerenciarVisita", {
-            id: id,
-          })
+          navigation.navigate("GerenciarVisita", { id: id })
         }
       >
         <Card>
@@ -171,30 +169,14 @@ export default function GerenciarEnsaio() {
         {ensaio ? ensaio.irmandade.irmaos + ensaio.irmandade.irmas : 0}
       </Text>
 
-      <Button
-        style={style.buttonAlterar}
-        onPress={() => navigation.navigate("EditarEnsaio", { id: ensaio.id })}
-      >
-        Alterar
-      </Button>
+      <QuadroInferior ensaio={ensaio as ensaioProps}/>
 
-      <Button
-        style={style.buttonGerar}
-        // onPress={() => navigation.navigate("Pdf", { ensaio: ensaio })}
-        onPress={async () => {
-          const pdf = new Pdf(ensaio as ensaioProps);
-          pdf.gearPdf();
-        }}
-        mode="contained"
-      >
-        Gerar PDF
-      </Button>
     </View>
   );
 }
 
 const style = StyleSheet.create({
-  buttonGerar: {
+  quadroInferior: {
     position: "absolute",
     bottom: 0,
     width: "100%",
