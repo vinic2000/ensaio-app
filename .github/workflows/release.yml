@@ -7,14 +7,48 @@ on:
 permissions:
   contents: write
 
+env:
+  NODE_VERSION: '18'
+  EXPO_VERSION: 'latest'
+
 jobs:
-  release:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Setup Expo CLI
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: ${{ env.EXPO_VERSION }}
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Android APK
+        run: |
+          npx expo build:android --type apk --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: |
+            *.apk
+          retention-days: 30
+
       - name: Create Release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,6 +62,7 @@ jobs:
             - **Commit:** ${{ github.sha }}
             - **Autor:** ${{ github.actor }}
             - **Data:** ${{ github.event.head_commit.timestamp }}
+            - **Versão:** v${{ github.run_number }}
             
             ### 🔧 Melhorias:
             - Interface moderna e responsiva
@@ -36,7 +71,29 @@ jobs:
             - Animações suaves
             - Sistema de temas
             
-            ### 📦 Downloads:
-            Os arquivos de build estarão disponíveis em breve.
+            ### 📱 APK Android:
+            O arquivo APK está disponível para download abaixo.
+            
+            ### 📦 Como instalar:
+            1. Baixe o APK do release
+            2. Instale no seu dispositivo Android
+            3. Permita instalação de fontes desconhecidas se necessário
           draft: false
-          prerelease: false 
+          prerelease: false
+
+      - name: Find APK file
+        id: find_apk
+        run: |
+          APK_FILE=$(find . -name "*.apk" | head -1)
+          echo "apk_file=$APK_FILE" >> $GITHUB_OUTPUT
+          echo "Found APK: $APK_FILE"
+
+      - name: Upload APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_apk.outputs.apk_file }}
+          asset_name: EnsaioApp-v${{ github.run_number }}.apk
+          asset_content_type: application/vnd.android.package-archive 
