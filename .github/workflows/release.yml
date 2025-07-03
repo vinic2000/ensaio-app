@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Android APK
         run: |
-          npx expo build:android --type apk --non-interactive
+          npx eas build --platform android --profile preview --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
