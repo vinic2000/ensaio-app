@@ -1,0 +1,39 @@
+name: Auto Release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            ## 🚀 Nova versão da aplicação Ensaio App
+            
+            ### 📋 Detalhes:
+            - **Commit:** ${{ github.sha }}
+            - **Autor:** ${{ github.actor }}
+            - **Data:** ${{ github.event.head_commit.timestamp }}
+            
+            ### 🔧 Melhorias:
+            - Interface moderna e responsiva
+            - Novos componentes reutilizáveis
+            - Melhor experiência do usuário
+            - Animações suaves
+            - Sistema de temas
+            
+            ### 📦 Downloads:
+            Os arquivos de build estarão disponíveis em breve.
+          draft: false
+          prerelease: false 
