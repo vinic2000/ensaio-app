@@ -2,8 +2,9 @@ import { Pdf } from "./Pdf";
 
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
+import { Platform } from "react-native";
 
-const moment = require("moment");
+import moment from "moment";
 
 import * as FileSystem from "expo-file-system";
 import { Documento } from './Pdf'
@@ -13,27 +14,35 @@ class PdfSimples extends Pdf implements Documento{
     async gerarDocumento(): Promise<void> {
 
         try {
+            console.log("Iniciando geração de PDF simples...");
 
             const html = this.gerarHtml();
+            console.log("HTML gerado com sucesso");
+            console.log("Plataforma:", Platform.OS);
 
-            const { uri } = await Print.printToFileAsync({ html, width: 640 });
+            if (Platform.OS === 'web') {
+                console.log("Plataforma web detectada - usando window.print()");
+                const newWindow = window.open('', '_blank');
+                if (newWindow) {
+                    newWindow.document.write(html);
+                    newWindow.document.close();
+                    newWindow.print();
+                    console.log("Impressão iniciada na web");
+                } else {
+                    throw new Error("Não foi possível abrir nova janela para impressão");
+                }
+            } else {
+                console.log("Plataforma móvel detectada - usando expo-print");
+                const { uri } = await Print.printToFileAsync({ html, width: 640 });
+                console.log("PDF gerado com sucesso:", uri);
 
-            const dir = FileSystem.documentDirectory + "ensaio/";
-
-            const director = await FileSystem.getInfoAsync(dir);
-
-            if (!director.exists) await FileSystem.makeDirectoryAsync(dir)
-
-            const arquivo = dir + `${moment(this.ensaio.data).format("DDMMYYYY")}-${this.ensaio.horario}.pdf`;
-
-            await FileSystem.copyAsync({
-                from: uri,
-                to: arquivo,
-            });
-
-            await shareAsync(arquivo);
+                // Compartilhar diretamente o arquivo gerado
+                await shareAsync(uri);
+                console.log("Compartilhamento iniciado");
+            }
         } catch (error) {
-            console.log(error);
+            console.error("Erro na geração do PDF:", error);
+            throw error;
         }
     }
 
@@ -46,7 +55,7 @@ class PdfSimples extends Pdf implements Documento{
             <head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <title>Bootstrap demo</title>
+                <title>Relatório de Ensaio</title>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
             </head>
             <body>
@@ -175,8 +184,6 @@ class PdfSimples extends Pdf implements Documento{
                                 </tr>
 
                             </tbody>
-                            </tbody>
-
                         </table>
 
                     </div>

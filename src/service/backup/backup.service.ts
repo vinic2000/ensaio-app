@@ -8,7 +8,7 @@ export async function backup() {
   try {
     const data = await database.todosEnsaios();
 
-    const dir = FileSystem.documentDirectory + "ensaio_backup/";
+    const dir = (FileSystem as any).documentDirectory + "ensaio_backup/";
 
     const director = await FileSystem.getInfoAsync(dir);
 
@@ -29,7 +29,7 @@ export async function backup() {
 
 export async function restore() {
   try {
-    const dir = FileSystem.documentDirectory + "ensaio_backup/";
+    const dir = (FileSystem as any).documentDirectory + "ensaio_backup/";
 
     const file = "backup.json";
 

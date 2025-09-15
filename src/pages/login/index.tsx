@@ -3,11 +3,12 @@ import { Alert } from "react-native";
 
 import * as LocalAuthentication from "expo-local-authentication";
 import { useNavigation } from "@react-navigation/native";
+import { NavigationProp } from "../../types/navigation";
 
 export default function Login() {
   //Configurando autenticação usando a digital
 
-  const navigate = useNavigation();
+  const navigate = useNavigation<NavigationProp>();
 
   async function autenticar() {
     const compatibilidade = await LocalAuthentication.hasHardwareAsync();

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types/types";
 
 import Home from "../pages/home";
 import AdicionarEnsaio from "../pages/adicionarEnsaio";
@@ -17,7 +18,7 @@ import GerenciarHinos from "../pages/gerenciarHinos";
 import Config from "../pages/config";
 
 export default function Router() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
 
   return (
     <NavigationContainer>

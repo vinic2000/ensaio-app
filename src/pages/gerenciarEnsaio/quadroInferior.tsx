@@ -25,8 +25,15 @@ export function QuadroInferior({ ensaio }: props) {
                 <Button
                     style={style.button}
                     onPress={async () => {
-                        const pdf = new PdfSimples(ensaio)
-                        await pdf.gerarDocumento();
+                        try {
+                            console.log("Iniciando geração de PDF simples para ensaio:", ensaio.id);
+                            const pdf = new PdfSimples(ensaio);
+                            await pdf.gerarDocumento();
+                            console.log("PDF simples gerado com sucesso");
+                        } catch (error) {
+                            console.error("Erro ao gerar PDF simples:", error);
+                            alert("Erro ao gerar PDF simples: " + error.message);
+                        }
                     }}
                     mode="contained"
                 >
@@ -36,8 +43,15 @@ export function QuadroInferior({ ensaio }: props) {
                 <Button
                     style={style.button}
                     onPress={async () => {
-                        const pdf = new PdfCompleto(ensaio)
-                        await pdf.gerarDocumento();
+                        try {
+                            console.log("Iniciando geração de PDF completo para ensaio:", ensaio.id);
+                            const pdf = new PdfCompleto(ensaio);
+                            await pdf.gerarDocumento();
+                            console.log("PDF completo gerado com sucesso");
+                        } catch (error) {
+                            console.error("Erro ao gerar PDF completo:", error);
+                            alert("Erro ao gerar PDF completo: " + error.message);
+                        }
                     }}
                     mode="contained"
                 >
@@ -57,16 +71,14 @@ const style = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         padding: 5
-
     },
 
     buttonAlterar:{
-        borderRadius: 'none'
+        borderRadius: 0
     },
 
     button: {
         width: '49%',
-        borderRadius: 'none'
-
+        borderRadius: 0
     },
 });

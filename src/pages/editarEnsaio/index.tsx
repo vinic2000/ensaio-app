@@ -46,6 +46,7 @@ export default function EditarEnsaio() {
           encarregado,
           horario,
           data: dataEnviar.toDate(),
+          hinos: [], // Adicionando hinos vazio para manter compatibilidade
         });
 
         navigate.navigate("GerenciarEnsaio", { id: id });
